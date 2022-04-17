@@ -1,6 +1,5 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React Tenzies Game App
+Roll until all dice are the same. Click each die to freeze it at its current value between rolls.
 
 ## Available Scripts
 
