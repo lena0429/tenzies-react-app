@@ -50,11 +50,17 @@ function App() {
 
   const diceArray = dice.map(die => <Die key={die.id} value={die.value} isHeld={die.isHeld} holdDice={() => holdDice(die.id)} />) 
 
+  // this function also handles when we want to start a new game 
   function rollDice(){
-    setDice(prevDice => prevDice.map(die => {
-      return die.isHeld ? 
-             die : generateNewDie()
-    }))
+    if (!tenzies) {
+      setDice(prevDice => prevDice.map(die => {
+        return die.isHeld ? 
+               die : generateNewDie()
+      }))
+    } else {
+      setTenzies(false)
+      setDice(allNewDice())
+    }
   }
 
   // tells whether win or not
