@@ -5,6 +5,20 @@ import {nanoid} from "nanoid";
 
 function App() {
   const [ dice, setDice ] = useState(allNewDice())
+  // add the tenzies state to inform the user whether they win or not
+  const [ tenzies, setTenzies ] = useState(false)
+
+  // we use the side effect to find an winning condition => when all dice are held, we set the tenzies to true
+  // keeping two pieces of internal states in sync with each other is a common reason to use useEffect()    
+  React.useEffect(() => {
+    const allHeld = dice.every(die => die.isHeld)
+    const firstValue = dice[0].value
+    const allSameValue = dice.every(die => die.value === firstValue)
+    if (allHeld && allSameValue) {
+      setTenzies(true)
+      console.log("You won!")
+    }
+  }, [dice])
 
 
    // helper function to dry code
@@ -41,6 +55,9 @@ function App() {
              die : generateNewDie()
     }))
   }
+
+  // tells whether win or not
+  
 
   return (
     <main>
