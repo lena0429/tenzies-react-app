@@ -6,19 +6,27 @@ import {nanoid} from "nanoid";
 function App() {
   const [ dice, setDice ] = useState(allNewDice())
 
+
+   // helper function to dry code
+   function generateNewDie(){
+    return {
+      value: Math.ceil(Math.random() * 6),
+      isHeld: false,
+      id: nanoid()
+    }
+  }
+
+
+  // generate an array of new dice when clicking the roll button
   function allNewDice(){
     let arr = [];
 
     for (let i = 0; i < 10; i++){
-      arr.push({
-        value: Math.ceil(Math.random() * 6),
-        isHeld: false,
-        id: nanoid()
-    })
-  }
+      arr.push(generateNewDie())
+    }
     return arr;
   }
-
+  
   function holdDice(id) {
     setDice(prevDice => prevDice.map(die => {
       return die.id === id ? {...die, isHeld: !die.isHeld} : die
@@ -28,7 +36,10 @@ function App() {
   const diceArray = dice.map(die => <Die key={die.id} value={die.value} isHeld={die.isHeld} holdDice={() => holdDice(die.id)} />) 
 
   function rollDice(){
-    setDice(allNewDice())
+    setDice(prevDice => prevDice.map(die => {
+      return die.isHeld ? 
+             die : generateNewDie()
+    }))
   }
 
   return (
