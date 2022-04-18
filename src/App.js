@@ -6,8 +6,6 @@ import {nanoid} from "nanoid";
 function App() {
   const [ dice, setDice ] = useState(allNewDice())
 
-  console.log(dice)
-
   function allNewDice(){
     let arr = [];
 
@@ -21,7 +19,11 @@ function App() {
     return arr;
   }
 
-  const diceArray = dice.map(die => <Die key={die.id} value={die.value} />) 
+  function holdDice(id) {
+    console.log(id)
+  }
+
+  const diceArray = dice.map(die => <Die key={die.id} value={die.value} isHeld={die.isHeld} holdDice={() => holdDice(die.id)} />) 
 
   function rollDice(){
     setDice(allNewDice())
