@@ -20,7 +20,9 @@ function App() {
   }
 
   function holdDice(id) {
-    console.log(id)
+    setDice(prevDice => prevDice.map(die => {
+      return die.id === id ? {...die, isHeld: !die.isHeld} : die
+    }))
   }
 
   const diceArray = dice.map(die => <Die key={die.id} value={die.value} isHeld={die.isHeld} holdDice={() => holdDice(die.id)} />) 
